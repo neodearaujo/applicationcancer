@@ -1,0 +1,122 @@
+🎯 Objectif global
+Accompagner les femmes atteintes ou à risque de cancer du sein tout au long de leur parcours (de la détection à la rééducation post-opératoire) pour :
+Maintenir ou restaurer une activité physique adaptée et régulière.
+Améliorer la condition physique (endurance, force, fonction).
+Réduire la fatigue liée aux traitements.
+Favoriser la motivation et l’autonomie par la gamification et le suivi personnalisé.
+Faciliter la communication entre la patiente, le kiné et le chirurgien.
+
+🩺 Phases de l’application
+1️⃣ Accueil / Tutoriel interactif
+Une interface claire et apaisante, couleurs douces (rose pastel, blanc, vert eau).
+Voix et/ou texte narratif simple, ton bienveillant (« Bienvenue, je suis ton coach santé. Ensemble, on va t’aider à retrouver énergie et confiance. »).
+Explication claire de :
+ce qu’est le cancer du sein (schéma simple, vidéo explicative courte) ;
+le rôle de l’activité physique et de la kinésithérapie ;
+comment utiliser l’app : suivi, journal de bord, exercices, communication avec les soignants, etc.
+➡️ Objectif : rassurer, motiver, donner envie d’utiliser l’application chaque jour.
+
+2️⃣ Profil personnalisé
+Création d’un profil d’un profil en compagnie du profesionnel qui devra rentrer son code administrateur : âge, stade du cancer, traitements en cours, antécédents, niveau d’activité, symptômes, objectifs.
+Une évaluation initiale du niveau de condition physique et de fatigue (via questionnaire validé, ex. FACIT-F, Borg, EVA fatigue).
+Synchronisation optionnelle avec une montre connectée (comptage des pas, fréquence cardiaque, sommeil, calories).
+
+3️⃣ Suivi médical connecté
+Espace partagé (kiné / chirurgien / oncologue) :
+le kiné reçoit les feedbacks quotidiens de la patiente (douleur, fatigue, mobilité)a chaque fin de séance.
+possibilité de messages courts sécurisés ou d’ajustement du programme ;
+export automatique des données dans un dossier de suivi.
+La patiente peut signaler tout effet indésirable (œdème, douleur inhabituelle) pour alerte au kiné.
+
+4️⃣ Programme d’exercices évolutif
+🔹 Phase 1 : Pré-opératoire (ou dès la détection)
+Objectif : maintenir la forme, réduire le stress, préparer la chirurgie.
+Exercices doux : respiration, étirements, mobilité, marche, yoga adapté. (details des exos ulterieurement)
+
+
+🔹 Phase 2 : Post-opératoire immédiate
+Objectif : récupération fonctionnelle du membre supérieur et de la posture.
+Exercices guidés avec vidéos 3D (mobilisation douce, drainage, auto-massage, respiration).
+Alertes sur les précautions : éviter port de charges, surveillance du bras, etc.
+
+
+🔹 Phase 3 : Pendant traitements (chimio/radiothérapie)
+Objectif : lutter contre la fatigue et la fonte musculaire.
+Exercices courts, fractionnés, adaptés au niveau du jour (auto-ajustement selon la fatigue).
+Renforcement doux (élastiques, poids légers, gainage) et marche active.
+Feedback quotidien : douleur / fatigue / motivation → ajustement automatique.
+
+
+🔹 Phase 4 : Rééducation et reprise
+Objectif : retour à la pleine fonction et reprise d’une activité régulière.
+Séances plus dynamiques (renforcement complet, cardio modéré à intense, équilibre).
+Intégration de mini-défis, progression visible (barres d’objectifs, trophées).
+
+5️⃣ Gamification / Motivation
+Système de points et de badges : “Tu as complété 3 séances cette semaine 💪”, “Tu as atteint ton objectif de marche 🌸”.
+Niveaux de progression : “Reconstruction”, “Énergie retrouvée”, “Force retrouvée”.
+Personnage virtuel ou avatar qui évolue avec la patiente.
+Messages positifs et encouragements quotidiens (“Même 10 minutes comptent !”, “Tu prends soin de toi, continue !”).
+Possibilité d’ajouter une communauté de soutien (forum ou groupe local encadré par kinés).
+
+
+6️⃣ Journal de bord / Suivi des ressentis
+À la fin de chaque séance : évaluation rapide (échelles visuelles 0-10) sur :
+fatigue, douleur, motivation, humeur, sommeil.
+Historique visible sous forme de graphes simples → valorise la progression.
+Ces données sont partagées (avec consentement) au kiné et médecin pour ajustement.
+
+7️⃣ Section Éducation / Ressources
+Mini-articles vulgarisés sur :
+les effets secondaires et comment les gérer ;
+les bénéfices de l’exercice ;
+les techniques de relaxation / respiration ;
+la prévention du lymphœdème.
+
+
+Contenus audio ou vidéos pour relaxation (respiration, cohérence cardiaque).
+
+
+8️⃣ Interface kiné / chirurgien
+Tableau de bord patient : progression, douleur, observance, alertes.
+Possibilité d’adapter les exercices, d’ajouter des vidéos personnalisées.
+Outil de communication simple (messages sécurisés, notifications).
+Génération automatique de rapports de suivi (utile pour les dossiers médicaux).
+
+🧩 Ce qu’il te manque pour en faire un outil complet
+Catégorie
+Élément à intégrer
+Pourquoi
+Sécurité & RGPD
+Données médicales cryptées, consentement explicite, hébergement santé (HDS en France)
+Obligatoire pour toute app santé connectée
+Validation scientifique
+Appuyer les programmes d’exercice sur des références validées (ACSM, ESMO, WCRF, etc.)
+Crédibilise l’application, utile pour publications ou projets d’école
+Évaluation clinique
+Questionnaires intégrés (EORTC QLQ-C30, FACIT-F, BFI)
+Permet d’objectiver la fatigue, la qualité de vie, les progrès
+Personnalisation fine
+Algorithme adaptatif selon fatigue/état du jour
+Rend l’app plus utile et réaliste
+Suivi à long terme
+Module “après cancer” → accompagnement pour reprise durable d’activité
+Fidélisation, prévention secondaire
+Interopérabilité
+Synchronisation montre connectée, Apple Health, Google Fit
+Automatisation du suivi d’activité
+Feedback kiné
+Zone kiné avec interface dédiée
+Pour qu’elle soit aussi un vrai outil de travail du kiné, pas seulement de la patiente
+Certification potentielle
+Marquage CE logiciel médical (classe I ou IIa selon usage)
+Pour validation institutionnelle si projet avance
+
+
+🧘‍♀️ Conclusion
+Ton concept a une vraie valeur ajoutée clinique et sociétale.
+ C’est une application :
+humaine, car elle accompagne comme un “ami” ;
+scientifique, car basée sur les données probantes en oncologie et activité physique ;
+utile pour les professionnels, car elle structure le suivi kiné/médecin ;
+engageante, grâce à la gamification et la personnalisation.
