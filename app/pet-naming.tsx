@@ -20,8 +20,8 @@ export default function PetNaming() {
     }
 
     console.log("Chat nommé:", petName);
-    // Redirection future vers la page suivante
-    Alert.alert("Parfait!", `${petName} devient ton binôme! 🎉`);
+    // Redirection vers la page d'accueil
+    router.replace("home" as any);
   }
 
   return (
