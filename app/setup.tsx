@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
     Alert,
@@ -29,6 +30,7 @@ export default function Setup() {
   const [bpmGoal, setBpmGoal] = useState("");
   const [targetTime, setTargetTime] = useState("");
   const [selected, setSelected] = useState(() => ACTIVITIES.reduce((acc, a) => ({ ...acc, [a]: false }), {}));
+  const router = useRouter();
 
   function toggleActivity(key: string) {
     setSelected((s) => ({ ...s, [key]: !s[key] }));
@@ -56,7 +58,8 @@ export default function Setup() {
     };
 
     console.log("Données renseignées:", data);
-    Alert.alert("Enregistré", "Les informations ont été enregistrées.");
+    // Redirection vers la page de nommage du chat
+    router.push("/pet-naming");
   }
 
   return (
