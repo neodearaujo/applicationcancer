@@ -1,0 +1,5 @@
+La page d'acceuil servira de base a toute les autres page il y en aura 4
+1: lancer une activité, après avoir appuyer sur ce bouton l'utilisateur se verra diriger vers une page ou il selectionnera une activité dans celle qui auront été selectionné aupréalable (pendant la fase d'introduction avec le medecin) apres avoir lancé l'activité de son choix il y aura un compte a rebours de 3 seconde qui lancera l'activité choisis avec un cronometre de 30 minute et un indicateur de BPM cible en bas (reliable avec une montre mais ne sera pas fonctionnel dans cette appication) 
+2: mes activités, permet de visualiser les activités précedantes, type d'activité, durée, bpm moyen, bpm max, date.
+3: boutique, ouvrira une nouvelle page avec plusieurs catégories: vetements, décors, nourriture et accessoire.
+4: chat, en appuyant sur le chat une zone de texte apparait et permet de discuter avec le chat (les reponses ne seront pas générée)
