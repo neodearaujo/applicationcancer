@@ -16,6 +16,13 @@ export default function Index() {
       >
         <Text style={styles.buttonText}>créer mon compte avec un professionnel</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push("/professional-login")}
+      >
+        <Text style={styles.buttonText}>je suis un professionnel</Text>
+      </TouchableOpacity>
     </View>
   );
 }
