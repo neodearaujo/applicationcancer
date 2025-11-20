@@ -18,7 +18,7 @@ export default function Index() {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.button}
+        style={[styles.button, styles.buttonSpacing]}
         onPress={() => router.push("/professional-login")}
       >
         <Text style={styles.buttonText}>je suis un professionnel</Text>
@@ -54,6 +54,9 @@ const styles = StyleSheet.create({
     width: "100%",
     maxWidth: 360,
     alignItems: "center",
+  },
+  buttonSpacing: {
+    marginTop: 16,
   },
   buttonText: {
     color: "white",

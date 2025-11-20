@@ -25,7 +25,7 @@ const ACTIVITIES = [
 
 export default function Setup() {
   const [name, setName] = useState("");
-  const [grade, setGrade] = useState("");
+  const [cancerOperated, setCancerOperated] = useState("");
   const [bpmMax, setBpmMax] = useState("");
   const [bpmGoal, setBpmGoal] = useState("");
   const [targetTime, setTargetTime] = useState("");
@@ -50,7 +50,7 @@ export default function Setup() {
 
     const data = {
       name,
-      grade,
+      cancerOperated,
       bpmMax,
       bpmGoal,
       targetTime,
@@ -69,8 +69,28 @@ export default function Setup() {
       <Text style={styles.label}>NOM</Text>
       <TextInput value={name} onChangeText={setName} style={styles.input} placeholder="Nom" />
 
-      <Text style={styles.label}>Grade du cancer</Text>
-      <TextInput value={grade} onChangeText={setGrade} style={styles.input} placeholder="Ex: 1, 2, 3" />
+      <Text style={styles.label}>Cancer opéré</Text>
+      <View style={styles.radioContainer}>
+        <TouchableOpacity 
+          style={styles.radioOption}
+          onPress={() => setCancerOperated("oui")}
+        >
+          <View style={[styles.radioButton, cancerOperated === "oui" && styles.radioSelected]}>
+            {cancerOperated === "oui" && <View style={styles.radioDot} />}
+          </View>
+          <Text style={styles.radioLabel}>Oui</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={styles.radioOption}
+          onPress={() => setCancerOperated("non")}
+        >
+          <View style={[styles.radioButton, cancerOperated === "non" && styles.radioSelected]}>
+            {cancerOperated === "non" && <View style={styles.radioDot} />}
+          </View>
+          <Text style={styles.radioLabel}>Non</Text>
+        </TouchableOpacity>
+      </View>
 
       <Text style={styles.label}>BPM max</Text>
       <TextInput
@@ -202,5 +222,38 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  radioContainer: {
+    flexDirection: "row",
+    marginBottom: 16,
+    gap: 20,
+  },
+  radioOption: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  radioButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#CFCFCF",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 8,
+    backgroundColor: "white",
+  },
+  radioSelected: {
+    borderColor: "#2E8B57",
+  },
+  radioDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: "#2E8B57",
+  },
+  radioLabel: {
+    fontSize: 16,
+    color: "#333",
   },
 });

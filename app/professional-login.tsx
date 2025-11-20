@@ -15,7 +15,7 @@ export default function ProfessionalLogin() {
   const router = useRouter();
 
   function handleValidate() {
-    if (code.trim() !== "0000") {
+    if (code.trim() !== "0621") {
       Alert.alert("Code incorrect", "Veuillez entrer le code professionnel valide.");
       return;
     }
