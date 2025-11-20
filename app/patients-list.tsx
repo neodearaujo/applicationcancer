@@ -1,12 +1,12 @@
+import { useRouter } from "expo-router";
 import React from "react";
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import { useRouter } from "expo-router";
 
 export default function PatientsList() {
   const router = useRouter();
