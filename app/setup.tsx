@@ -1,13 +1,13 @@
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-    Alert,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 const ACTIVITIES = [
@@ -29,7 +29,9 @@ export default function Setup() {
   const [bpmMax, setBpmMax] = useState("");
   const [bpmGoal, setBpmGoal] = useState("");
   const [targetTime, setTargetTime] = useState("");
-  const [selected, setSelected] = useState(() => ACTIVITIES.reduce((acc, a) => ({ ...acc, [a]: false }), {}));
+  const [selected, setSelected] = useState<{ [key: string]: boolean }>(() => 
+    ACTIVITIES.reduce((acc, a) => ({ ...acc, [a]: false }), {} as { [key: string]: boolean })
+  );
   const router = useRouter();
 
   function toggleActivity(key: string) {
@@ -38,7 +40,7 @@ export default function Setup() {
 
   function toggleAll() {
     const allOn = Object.values(selected).every(Boolean);
-    const next = ACTIVITIES.reduce((acc, a) => ({ ...acc, [a]: !allOn }), {});
+    const next = ACTIVITIES.reduce((acc, a) => ({ ...acc, [a]: !allOn }), {} as { [key: string]: boolean });
     setSelected(next);
   }
 

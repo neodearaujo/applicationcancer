@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Alert,
     Dimensions,
@@ -12,7 +11,7 @@ const { width, height } = Dimensions.get("window");
 export default function Home() {
   return (
     <ImageBackground
-      source={require("../assets/images/accueil 2.png")}
+      source={require("../assets/images/accueil 3.png")}
       style={styles.background}
       imageStyle={{ resizeMode: "contain" }}
     >
