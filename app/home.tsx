@@ -47,7 +47,7 @@ export default function Home() {
       {/* Zone Boutique - Haut droit */}
       <TouchableOpacity
         style={styles.boutiqueHotspot}
-        onPress={() => Alert.alert("Bientôt", "Section boutique à venir")}
+        onPress={() => router.push("/shop" as any)}
         activeOpacity={0.7}
       />
 
