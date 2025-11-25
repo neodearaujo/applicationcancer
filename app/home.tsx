@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
     Alert,
@@ -14,6 +15,7 @@ const { width, height } = Dimensions.get("window");
 
 export default function Home() {
   const [petName, setPetName] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     async function loadPetName() {
@@ -52,7 +54,7 @@ export default function Home() {
       {/* Zone Bouton Commencer une activité - Bas */}
       <TouchableOpacity
         style={styles.startButtonHotspot}
-        onPress={() => Alert.alert("Bientôt", "Les activités arrivent très bientôt!")}
+        onPress={() => router.push("/activity-selection" as any)}
         activeOpacity={0.7}
       />
 

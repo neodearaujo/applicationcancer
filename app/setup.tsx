@@ -1,13 +1,14 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-  Alert,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Alert,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 const ACTIVITIES = [
@@ -44,11 +45,13 @@ export default function Setup() {
     setSelected(next);
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!name.trim()) {
       Alert.alert("Nom manquant", "Veuillez entrer le nom.");
       return;
     }
+
+    const selectedActivities = Object.keys(selected).filter((k) => selected[k]);
 
     const data = {
       name,
@@ -56,12 +59,19 @@ export default function Setup() {
       bpmMax,
       bpmGoal,
       targetTime,
-      activities: Object.keys(selected).filter((k) => selected[k]),
+      activities: selectedActivities,
     };
 
-    console.log("Données renseignées:", data);
-    // Redirection vers la page de nommage du chat
-    router.push("/pet-naming");
+    try {
+      // Sauvegarder les données dans AsyncStorage
+      await AsyncStorage.setItem("userSetup", JSON.stringify(data));
+      console.log("Données renseignées:", data);
+      // Redirection vers la page de nommage du chat
+      router.push("/pet-naming");
+    } catch (error) {
+      console.error("Erreur lors de la sauvegarde:", error);
+      Alert.alert("Erreur", "Impossible de sauvegarder les données.");
+    }
   }
 
   return (
