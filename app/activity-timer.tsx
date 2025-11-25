@@ -75,8 +75,8 @@ export default function ActivityTimer() {
         {
           text: "Arrêter",
           onPress: () => {
-            // Ici on pourrait sauvegarder les données
-            router.back();
+            // Rediriger vers le questionnaire post-activité
+            router.replace("/post-activity-questionnaire" as any);
           },
         },
       ]
