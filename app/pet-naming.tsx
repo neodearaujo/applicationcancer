@@ -1,7 +1,9 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     Alert,
+    Image,
     StyleSheet,
     Text,
     TextInput,
@@ -13,15 +15,21 @@ export default function PetNaming() {
   const [petName, setPetName] = useState("");
   const router = useRouter();
 
-  function handleContinue() {
+  async function handleContinue() {
     if (!petName.trim()) {
       Alert.alert("Nom manquant", "Veuillez donner un nom à votre compagnon.");
       return;
     }
 
-    console.log("Chat nommé:", petName);
-    // Redirection vers la page d'accueil
-    router.replace("home" as any);
+    try {
+      await AsyncStorage.setItem("petName", petName.trim());
+      console.log("Chat nommé:", petName);
+      // Redirection vers la page d'accueil
+      router.replace("home" as any);
+    } catch (error) {
+      console.error("Erreur lors de la sauvegarde du nom:", error);
+      Alert.alert("Erreur", "Impossible de sauvegarder le nom.");
+    }
   }
 
   return (
@@ -34,11 +42,13 @@ export default function PetNaming() {
         <View style={styles.speechPointer} />
       </View>
 
-      {/* Image de chat (placeholder pour l'instant) */}
+      {/* Image de chat */}
       <View style={styles.catContainer}>
-        <View style={styles.catPlaceholder}>
-          <Text style={styles.catEmoji}>🐱</Text>
-        </View>
+        <Image
+          source={require("../assets/images/cat.png")}
+          style={styles.catImage}
+          resizeMode="contain"
+        />
       </View>
 
       {/* Zone de texte pour nommer le chat */}
@@ -99,6 +109,12 @@ const styles = StyleSheet.create({
   },
   catContainer: {
     marginBottom: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  catImage: {
+    width: 220,
+    height: 220,
   },
   catPlaceholder: {
     width: 150,

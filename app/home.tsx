@@ -1,14 +1,34 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 import {
     Alert,
     Dimensions,
     ImageBackground,
     StyleSheet,
-    TouchableOpacity
+    Text,
+    TouchableOpacity,
+    View
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
 export default function Home() {
+  const [petName, setPetName] = useState("");
+
+  useEffect(() => {
+    async function loadPetName() {
+      try {
+        const name = await AsyncStorage.getItem("petName");
+        if (name) {
+          setPetName(name);
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement du nom:", error);
+      }
+    }
+    loadPetName();
+  }, []);
+
   return (
     <ImageBackground
       source={require("../assets/images/accueil 3.png")}
@@ -35,6 +55,13 @@ export default function Home() {
         onPress={() => Alert.alert("Bientôt", "Les activités arrivent très bientôt!")}
         activeOpacity={0.7}
       />
+
+      {/* Bulle avec le nom du chat */}
+      {petName && (
+        <View style={styles.speechBubble}>
+          <Text style={styles.speechText}>{petName}</Text>
+        </View>
+      )}
     </ImageBackground>
   );
 }
@@ -71,5 +98,19 @@ const styles = StyleSheet.create({
     right: 30,
     height: 60,
     backgroundColor: "transparent",
+  },
+  // Bulle de dialogue pour le nom du chat
+  speechBubble: {
+    position: "absolute",
+    top: 210,
+    left: 150,
+    backgroundColor: "transparent",
+    padding: 12,
+    paddingHorizontal: 16,
+  },
+  speechText: {
+    fontSize: 18,
+    color: "#2E8B57",
+    fontWeight: "700",
   },
 });
