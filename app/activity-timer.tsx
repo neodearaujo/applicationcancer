@@ -74,7 +74,17 @@ export default function ActivityTimer() {
         { text: "Continuer", style: "cancel" },
         {
           text: "Arrêter",
-          onPress: () => {
+          onPress: async () => {
+            // Sauvegarder les données de l'activité
+            try {
+              await AsyncStorage.setItem("currentActivityData", JSON.stringify({
+                activity,
+                duration: seconds,
+                timestamp: new Date().toISOString(),
+              }));
+            } catch (error) {
+              console.error("Erreur lors de la sauvegarde de l'activité:", error);
+            }
             // Rediriger vers le questionnaire post-activité
             router.replace("/post-activity-questionnaire" as any);
           },

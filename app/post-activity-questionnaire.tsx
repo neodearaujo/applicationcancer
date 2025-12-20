@@ -1,15 +1,14 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    Alert,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-
-const STOP_REASONS = [
+import AsyncStorage from "@react-native-async-storage/async-storage";const STOP_REASONS = [
   "J'ai fini l'objectif de temps fixé",
   "J'ai une douleur importante",
   "Je suis fatiguée",
@@ -93,13 +92,44 @@ export default function PostActivityQuestionnaire() {
     return `${categoryIndex}-${questionIndex}`;
   }
 
-  function handleNext() {
+  async function handleNext() {
     const totalSteps = totalQuestions + 1; // +1 pour la raison d'arrêt
     
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Sauvegarder les réponses et revenir à l'accueil
+      // Sauvegarder toutes les données de l'activité
+      try {
+        const currentActivityData = await AsyncStorage.getItem("currentActivityData");
+        if (currentActivityData) {
+          const activityData = JSON.parse(currentActivityData);
+          
+          // Créer l'objet complet de l'activité
+          const completedActivity = {
+            ...activityData,
+            stopReason,
+            answers,
+            completedAt: new Date().toISOString(),
+          };
+          
+          // Récupérer l'historique existant
+          const historyData = await AsyncStorage.getItem("activitiesHistory");
+          const history = historyData ? JSON.parse(historyData) : [];
+          
+          // Ajouter la nouvelle activité
+          history.push(completedActivity);
+          
+          // Sauvegarder l'historique mis à jour
+          await AsyncStorage.setItem("activitiesHistory", JSON.stringify(history));
+          
+          // Supprimer les données temporaires
+          await AsyncStorage.removeItem("currentActivityData");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la sauvegarde de l'historique:", error);
+      }
+      
+      // Afficher le message de félicitations
       Alert.alert(
         "Félicitations !",
         "Vous verrez vos récompenses s'afficher sur l'accueil ! Félicitation !",

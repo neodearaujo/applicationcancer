@@ -40,7 +40,7 @@ export default function Home() {
       {/* Zone Mes activités - Haut gauche */}
       <TouchableOpacity
         style={styles.activitiesHotspot}
-        onPress={() => Alert.alert("Bientôt", "Section mes activités à venir")}
+        onPress={() => router.push("/my-activities" as any)}
         activeOpacity={0.7}
       />
 
