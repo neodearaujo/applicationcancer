@@ -20,53 +20,43 @@ const QUESTIONS = [
   {
     category: "Douleur et inconfort musculosquelettique",
     questions: [
-      "Ressentez-vous une douleur à l'épaule après la séance ?",
-      "Avez-vous des douleurs dans le bras concerné (zone lymphatique ou cicatrice) ?",
-      "Sentez-vous un tiraillement ou une raideur autour de votre cicatrice ?",
-      "Avez-vous des douleurs générales au niveau du cou, du dos ou de la zone pectorale ?",
+      "Sensation de tiraillement ou de raideur autour de la cicatrice",
+      "Douleur musculosquelettique générale (cou, dos, zone pectorale)",
     ],
   },
   {
     category: "Fatigue et tolérance à l'exercice",
     questions: [
-      "Vous sentez-vous fatiguée de manière générale après la séance ?",
-      "Ressentez-vous une fatigue musculaire dans vos bras, vos épaules ou votre tronc ?",
-      "Si vous deviez faire une autre activité maintenant, pensez-vous que ce serait difficile pour vous ?",
+      "Fatigue générale après la séance",
+      "Capacité de récupération (combien te coûterait de faire une autre activité maintenant ?)",
     ],
   },
   {
     category: "Symptômes autonomiques et généraux",
     questions: [
-      "Avez-vous ressenti des vertiges ou une sensation d'instabilité après l'exercice ?",
-      "Avez-vous eu des nausées après la séance ?",
-      "Avez-vous eu mal à la tête après l'exercice ?",
-      "Avez-vous eu l'impression de manquer d'air ou de respirer difficilement ?",
-      "Avez-vous ressenti des palpitations ou une accélération excessive de votre rythme cardiaque ?",
+      "Vertiges, nausées ou mal de tête post-exercice",
+      "Sensation de manque d'air ou respiration difficile",
+      "Palpitations ou augmentation excessive du rythme cardiaque",
     ],
   },
   {
     category: "Fonction du membre supérieur et risque de lymphœdème",
     questions: [
-      "Votre bras concerné vous paraît-il lourd ou gonflé après la séance ?",
-      "Avez-vous ressenti une sensation de \"tension interne\" dans votre bras (signe précoce de lymphœdème) ?",
-      "Avez-vous eu des difficultés à lever ou à bouger votre bras après l'exercice ?",
+      "Lourdeur, gonflement, tension interne ou difficulté à bouger le bras concerné",
     ],
   },
   {
     category: "Bien-être émotionnel et motivation",
     questions: [
-      "Comment décririez-vous votre état d'esprit après la séance ?",
-      "Avez-vous ressenti de l'anxiété liée à l'exercice ?",
-      "Vous sentez-vous confiante dans votre capacité à poursuivre le programme ?",
-      "Ressentez-vous un sentiment d'accomplissement ou de satisfaction après cette séance ?",
+      "Niveau d'anxiété lié à l'exercice",
+      "Confiance en ta capacité à poursuivre le programme",
     ],
   },
   {
     category: "Perception globale de la séance",
     questions: [
-      "Comment évalueriez-vous l'effort global fourni pendant cette séance (sur une échelle de 0 à 10) ?",
-      "Pensez-vous avoir fait trop ou pas assez pendant cette séance ?",
-      "Globalement, comment évalueriez-vous cette séance dans son ensemble ?",
+      "Effort global de la séance (équivalent à Borg CR10 — RPE)",
+      "Évaluation générale de la séance (comment la jugerais-tu dans l'ensemble ?)",
     ],
   },
 ];
@@ -83,6 +73,15 @@ export default function PostActivityQuestionnaire() {
   function handleReasonSelect(reason: string) {
     setStopReason(reason);
     setCurrentStep(1);
+  }
+
+  function handleSkip() {
+    if (currentStep === 0) {
+      setStopReason("xxx");
+      setCurrentStep(1);
+    } else {
+      handleNext();
+    }
   }
 
   function handleAnswer(questionKey: string, value: number) {
@@ -105,11 +104,22 @@ export default function PostActivityQuestionnaire() {
         if (currentActivityData) {
           const activityData = JSON.parse(currentActivityData);
           
+          // Remplacer les réponses manquantes par "xxx"
+          const completedAnswers = { ...answers };
+          QUESTIONS.forEach((category, catIndex) => {
+            category.questions.forEach((_, qIndex) => {
+              const key = getQuestionKey(catIndex, qIndex);
+              if (completedAnswers[key] === undefined) {
+                completedAnswers[key] = "xxx";
+              }
+            });
+          });
+          
           // Créer l'objet complet de l'activité
           const completedActivity = {
             ...activityData,
-            stopReason,
-            answers,
+            stopReason: stopReason || "xxx",
+            answers: completedAnswers,
             completedAt: new Date().toISOString(),
           };
           
@@ -168,6 +178,10 @@ export default function PostActivityQuestionnaire() {
             </Text>
           </TouchableOpacity>
         ))}
+        
+        <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
+          <Text style={styles.skipButtonText}>skip →</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -253,6 +267,10 @@ export default function PostActivityQuestionnaire() {
         <Text style={styles.progress}>
           Question {currentStep} sur {totalQuestions}
         </Text>
+        
+        <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
+          <Text style={styles.skipButtonText}>skip →</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -379,5 +397,17 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: "center",
     marginTop: 15,
+  },
+  skipButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  skipButtonText: {
+    fontSize: 14,
+    color: "#999",
+    fontStyle: "italic",
   },
 });

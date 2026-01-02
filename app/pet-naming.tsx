@@ -65,6 +65,10 @@ export default function PetNaming() {
       <TouchableOpacity style={styles.button} onPress={handleContinue}>
         <Text style={styles.buttonText}>Continuer</Text>
       </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.skipButton} onPress={() => router.replace("home" as any)}>
+        <Text style={styles.skipButtonText}>skip →</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -162,5 +166,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  skipButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  skipButtonText: {
+    fontSize: 14,
+    color: "#999",
+    fontStyle: "italic",
   },
 });

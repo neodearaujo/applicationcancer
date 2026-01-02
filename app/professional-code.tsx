@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     Alert,
     StyleSheet,
@@ -37,6 +37,10 @@ export default function ProfessionalCode() {
 
       <TouchableOpacity style={styles.button} onPress={handleValidate}>
         <Text style={styles.buttonText}>Valider</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.skipButton} onPress={() => router.push("/setup")}>
+        <Text style={styles.skipButtonText}>skip →</Text>
       </TouchableOpacity>
     </View>
   );
@@ -80,5 +84,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  skipButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  skipButtonText: {
+    fontSize: 14,
+    color: "#999",
+    fontStyle: "italic",
   },
 });

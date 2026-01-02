@@ -154,6 +154,10 @@ export default function Setup() {
       <TouchableOpacity style={styles.submit} onPress={handleSubmit}>
         <Text style={styles.submitText}>Valider</Text>
       </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.skipButton} onPress={() => router.push("/pet-naming")}>
+        <Text style={styles.skipButtonText}>skip →</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -267,5 +271,17 @@ const styles = StyleSheet.create({
   radioLabel: {
     fontSize: 16,
     color: "#333",
+  },
+  skipButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  skipButtonText: {
+    fontSize: 14,
+    color: "#999",
+    fontStyle: "italic",
   },
 });
