@@ -1,9 +1,79 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
   const router = useRouter();
+  const [isChecking, setIsChecking] = useState(true);
+  const [showLanguageSelection, setShowLanguageSelection] = useState(false);
+
+  useEffect(() => {
+    checkLanguage();
+  }, []);
+
+  async function checkLanguage() {
+    try {
+      // Forcer la suppression de la langue pour afficher la sélection
+      await AsyncStorage.removeItem("appLanguage");
+      
+      const language = await AsyncStorage.getItem("appLanguage");
+      if (!language) {
+        setShowLanguageSelection(true);
+        setIsChecking(false);
+      } else {
+        setIsChecking(false);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la vérification de la langue:", error);
+      setIsChecking(false);
+    }
+  }
+
+  async function handleLanguageSelect(language: string) {
+    try {
+      await AsyncStorage.setItem("appLanguage", language);
+      setShowLanguageSelection(false);
+      if (language === "es") {
+        router.push("/es");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la sauvegarde de la langue:", error);
+    }
+  }
+
+  if (isChecking) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#2E7D65" />
+      </View>
+    );
+  }
+
+  if (showLanguageSelection) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titleLang}>Choisissez votre langue</Text>
+        <Text style={styles.subtitleLang}>Choose your language / Elige tu idioma</Text>
+
+        <TouchableOpacity
+          style={styles.languageButton}
+          onPress={() => handleLanguageSelect("fr")}
+        >
+          <Text style={styles.flag}>🇫🇷</Text>
+          <Text style={styles.languageText}>Français</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.languageButton, styles.buttonSpacing]}
+          onPress={() => handleLanguageSelect("es")}
+        >
+          <Text style={styles.flag}>🇪🇸</Text>
+          <Text style={styles.languageText}>Español</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -63,5 +133,45 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     textTransform: "lowercase",
+  },
+  titleLang: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#2E7D65",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  subtitleLang: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 40,
+    textAlign: "center",
+  },
+  languageButton: {
+    backgroundColor: "white",
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    borderRadius: 16,
+    width: "100%",
+    maxWidth: 300,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "#2E8B57",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  flag: {
+    fontSize: 40,
+    marginRight: 15,
+  },
+  languageText: {
+    color: "#2E7D65",
+    fontSize: 20,
+    fontWeight: "700",
   },
 });
