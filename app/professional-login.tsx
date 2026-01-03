@@ -15,12 +15,12 @@ export default function ProfessionalLogin() {
   const router = useRouter();
 
   function handleValidate() {
-    if (code.trim() !== "0621") {
+    if (code.trim() !== "1234") {
       Alert.alert("Code incorrect", "Veuillez entrer le code professionnel valide.");
       return;
     }
     
-    if (password.trim() !== "nomdel'appli") {
+    if (password.trim() !== "RISE") {
       Alert.alert("Mot de passe incorrect", "Veuillez entrer le mot de passe correct.");
       return;
     }

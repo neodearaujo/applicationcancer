@@ -14,7 +14,7 @@ export default function ProfessionalCodeES() {
   const router = useRouter();
 
   function handleValidate() {
-    if (code.trim() === "0621") {
+    if (code.trim() === "1234") {
       router.push("/es/setup");
     } else {
       Alert.alert("Código incorrecto", "Por favor ingrese el código profesional proporcionado.");
