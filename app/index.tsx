@@ -14,9 +14,6 @@ export default function Index() {
 
   async function checkLanguage() {
     try {
-      // Forcer la suppression de la langue pour afficher la sélection
-      await AsyncStorage.removeItem("appLanguage");
-      
       const language = await AsyncStorage.getItem("appLanguage");
       if (!language) {
         setShowLanguageSelection(true);
@@ -40,6 +37,11 @@ export default function Index() {
     } catch (error) {
       console.error("Erreur lors de la sauvegarde de la langue:", error);
     }
+  }
+
+  async function handleChangeLanguage() {
+    await AsyncStorage.removeItem("appLanguage");
+    setShowLanguageSelection(true);
   }
 
   if (isChecking) {
@@ -77,6 +79,13 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.languageChangeButton}
+        onPress={handleChangeLanguage}
+      >
+        <Text style={styles.languageChangeText}>🌐 Changer de langue</Text>
+      </TouchableOpacity>
+
       <Text style={styles.title}>Bienvenue</Text>
       <Text style={styles.subtitle}>Ton coach santé</Text>
 
@@ -173,5 +182,17 @@ const styles = StyleSheet.create({
     color: "#2E7D65",
     fontSize: 20,
     fontWeight: "700",
+  },
+  languageChangeButton: {
+    position: "absolute",
+    top: 50,
+    right: 20,
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  languageChangeText: {
+    fontSize: 14,
+    color: "#2E7D65",
+    fontWeight: "600",
   },
 });

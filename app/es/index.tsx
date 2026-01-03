@@ -1,11 +1,24 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function IndexES() {
   const router = useRouter();
 
+  async function handleChangeLanguage() {
+    await AsyncStorage.removeItem("appLanguage");
+    router.replace("/");
+  }
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.languageChangeButton}
+        onPress={handleChangeLanguage}
+      >
+        <Text style={styles.languageChangeText}>🌐 Cambiar idioma</Text>
+      </TouchableOpacity>
+
       <Text style={styles.title}>Bienvenido</Text>
       <Text style={styles.subtitle}>Tu coach de salud</Text>
 
@@ -62,5 +75,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     textTransform: "lowercase",
+  },
+  languageChangeButton: {
+    position: "absolute",
+    top: 50,
+    right: 20,
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  languageChangeText: {
+    fontSize: 14,
+    color: "#2E7D65",
+    fontWeight: "600",
   },
 });
