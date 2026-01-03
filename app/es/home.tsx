@@ -34,7 +34,7 @@ export default function HomeES() {
     <ImageBackground
       source={require("../../assets/images/accueil 4.png")}
       style={styles.background}
-      imageStyle={{ resizeMode: "cover" }}
+      imageStyle={{ resizeMode: "contain" }}
     >
       {/* Zone Mes activités - Haut gauche */}
       <TouchableOpacity
