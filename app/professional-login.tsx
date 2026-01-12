@@ -54,6 +54,10 @@ export default function ProfessionalLogin() {
       <TouchableOpacity style={styles.button} onPress={handleValidate}>
         <Text style={styles.buttonText}>Se connecter</Text>
       </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.skipButton} onPress={() => router.push("/patients-list")}>
+        <Text style={styles.skipButtonText}>skip →</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -99,5 +103,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  skipButton: {
+    marginTop: 20,
+    alignItems: "flex-end",
+  },
+  skipButtonText: {
+    color: "#2E8B57",
+    fontSize: 14,
+    fontWeight: "600",
   },
 });

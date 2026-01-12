@@ -65,7 +65,7 @@ export default function PostActivityQuestionnaire() {
   const router = useRouter();
   const [stopReason, setStopReason] = useState("");
   const [currentStep, setCurrentStep] = useState(0); // 0 = raison d'arrêt, 1+ = questions
-  const [answers, setAnswers] = useState<{ [key: string]: number }>({});
+  const [answers, setAnswers] = useState<{ [key: string]: number | string }>({});
 
   const totalQuestions = QUESTIONS.reduce((sum, cat) => sum + cat.questions.length, 0);
   const currentCategoryIndex = Math.floor(currentStep / 10); // Approximation pour la catégorie actuelle

@@ -54,6 +54,10 @@ export default function ProfessionalLoginES() {
       <TouchableOpacity style={styles.button} onPress={handleValidate}>
         <Text style={styles.buttonText}>Iniciar sesión</Text>
       </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.skipButton} onPress={() => router.push("/es/patients-list")}>
+        <Text style={styles.skipButtonText}>saltar →</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -99,5 +103,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  skipButton: {
+    marginTop: 20,
+    alignItems: "flex-end",
+  },
+  skipButtonText: {
+    color: "#2E8B57",
+    fontSize: 14,
+    fontWeight: "600",
   },
 });

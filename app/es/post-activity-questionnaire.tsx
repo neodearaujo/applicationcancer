@@ -66,7 +66,7 @@ export default function PostActivityQuestionnaireES() {
   const router = useRouter();
   const [stopReason, setStopReason] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<{ [key: string]: number }>({});
+  const [answers, setAnswers] = useState<{ [key: string]: number | string }>({});
 
   const totalQuestions = QUESTIONS.reduce((sum, cat) => sum + cat.questions.length, 0);
   

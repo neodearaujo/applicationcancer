@@ -2,9 +2,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
+    Alert,
     ScrollView,
     StyleSheet,
     Text,
+    TextInput,
     TouchableOpacity,
     View
 } from "react-native";
@@ -12,6 +14,7 @@ import {
 export default function ActivitySelectionES() {
   const [activities, setActivities] = useState<string[]>([]);
   const [weeklyGoal, setWeeklyGoal] = useState(0);
+  const [customActivity, setCustomActivity] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -33,6 +36,33 @@ export default function ActivitySelectionES() {
 
   function handleActivityPress(activity: string) {
     router.push(`/es/activity-timer?activity=${encodeURIComponent(activity)}` as any);
+  }
+
+  async function handleAddCustomActivity() {
+    if (customActivity.trim() === "") {
+      Alert.alert("Error", "Por favor ingrese un nombre de actividad.");
+      return;
+    }
+
+    try {
+      const setupData = await AsyncStorage.getItem("userSetup");
+      let data = setupData ? JSON.parse(setupData) : {};
+      const currentActivities = data.activities || [];
+      
+      if (!currentActivities.includes(customActivity.trim())) {
+        currentActivities.push(customActivity.trim());
+        data.activities = currentActivities;
+        await AsyncStorage.setItem("userSetup", JSON.stringify(data));
+        setActivities(currentActivities);
+        setCustomActivity("");
+        Alert.alert("Éxito", "¡Actividad añadida con éxito!");
+      } else {
+        Alert.alert("Info", "Esta actividad ya existe.");
+      }
+    } catch (error) {
+      console.error("Error al añadir la actividad:", error);
+      Alert.alert("Error", "No se puede añadir la actividad.");
+    }
   }
 
   return (
@@ -63,6 +93,23 @@ export default function ActivitySelectionES() {
             </TouchableOpacity>
           ))
         )}
+        
+        {/* Sección para añadir una actividad personalizada */}
+        <View style={styles.customActivityContainer}>
+          <Text style={styles.customActivityTitle}>Añadir una actividad</Text>
+          <TextInput
+            style={styles.customActivityInput}
+            placeholder="Nombre de la actividad"
+            value={customActivity}
+            onChangeText={setCustomActivity}
+          />
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={handleAddCustomActivity}
+          >
+            <Text style={styles.addButtonText}>Añadir</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -124,5 +171,40 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: "center",
     marginTop: 40,
+  },
+  customActivityContainer: {
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 20,
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: "#D86EA6",
+  },
+  customActivityTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#2E8B57",
+    marginBottom: 12,
+    textAlign: "center",
+  },
+  customActivityInput: {
+    backgroundColor: "#F5F5F5",
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: "#DDD",
+  },
+  addButton: {
+    backgroundColor: "#D86EA6",
+    borderRadius: 8,
+    padding: 14,
+    alignItems: "center",
+  },
+  addButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
